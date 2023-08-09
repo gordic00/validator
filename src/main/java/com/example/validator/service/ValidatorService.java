@@ -1,7 +1,6 @@
 package com.example.validator.service;
 
 import com.example.validator.model.dto.*;
-import com.example.validator.repository.CurrencyConverterRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -13,13 +12,15 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
-import java.util.*;
+import java.util.HashSet;
+import java.util.LinkedHashSet;
+import java.util.LinkedList;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
 @Slf4j
 public class ValidatorService {
-    private final CurrencyConverterRepository currencyConverterRepository;
 
     private final List<String> availableCurrencies =
             List.of("EUR", "BAM", "HK", "GBP", "TRY", "RSD", "RUB", "JPY", "THB", "MYR", "CNY", "PLN", "MXN",
@@ -222,42 +223,42 @@ public class ValidatorService {
                 String link = fieldContainsData(product.getLink()) ? product.getLink() : "No data.";
 
                 switch (batchDto.getCheckField()) {
-                    case "currency" :
+                    case "currency":
                         if (!fieldContainsData(product.getCurrency()) || !availableCurrencies.contains(product.getCurrency())) {
                             response.add(product.getCurrency() + " : " + link);
                         }
                         break;
-                    case "seller_name" :
+                    case "seller_name":
                         if (!fieldContainsData(product.getSellerName())) {
                             response.add(link);
                         }
                         break;
-                    case "seller_url" :
+                    case "seller_url":
                         if (!fieldContainsData(product.getSellerUrl())) {
                             response.add(link);
                         }
                         break;
-                    case "seller_id" :
+                    case "seller_id":
                         if (!fieldContainsData(product.getSellerId())) {
                             response.add(link);
                         }
                         break;
-                    case "title" :
+                    case "title":
                         if (!fieldContainsData(product.getTitle()) || product.getTitle().isBlank()) {
                             response.add(link);
                         }
                         break;
-                    case "link" :
+                    case "link":
                         if (!fieldContainsData(product.getLink()) || !product.getLink().startsWith("https:")) {
                             response.add(link);
                         }
                         break;
                     case "image":
-                        if (product.getImages() == null){
+                        if (product.getImages() == null) {
                             response.add(link);
                         } else {
                             for (ImagesDto image : product.getImages()) {
-                                if (!fieldContainsData(image.getSourceUrl())){
+                                if (!fieldContainsData(image.getSourceUrl())) {
                                     response.add(link);
                                 }
                             }
@@ -313,7 +314,7 @@ public class ValidatorService {
                     image.setAdditional("there are no images");
                     list.getImage().add(image);
                 } else {
-                    if (product.getImages().size() == 1){
+                    if (product.getImages().size() == 1) {
                         ValidateDto image2 = new ValidateDto();
                         image2.setUrl(fieldContainsData(product.getLink()) ? product.getLink() : "No data.");
                         image2.setAdditional("Only one picture");
@@ -325,7 +326,7 @@ public class ValidatorService {
                             list.getImage().add(image1);
                         }
                     }
-                    if (product.getImages().size() > 1){
+                    if (product.getImages().size() > 1) {
                         for (ImagesDto image : product.getImages()) {
                             if (!fieldContainsData(image.getSourceUrl())) {
                                 ValidateDto image1 = new ValidateDto();
@@ -348,8 +349,8 @@ public class ValidatorService {
         Document doc = Jsoup.parse(html);
         Elements gallery = doc.select("div.gallery-root-n3_HK");
         for (Element image : gallery) {
-            image.attr("width","200px");
-            image.attr("height","200px");
+            image.attr("width", "200px");
+            image.attr("height", "200px");
             System.out.println(image);
         }
 //        Elements images = doc.getElementsByClass("images-preview-previewImageWrapper-RfThd");
