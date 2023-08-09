@@ -41,6 +41,10 @@ public class ValidateListDto {
     @JsonProperty("product_link")
     private List<String> productLink = new LinkedList<>();
 
+    @JsonFormat(shape = JsonFormat.Shape.STRING)
+    @JsonProperty("price")
+    private List<String> price = new LinkedList<>();
+
     @JsonFormat(shape = JsonFormat.Shape.OBJECT)
     @JsonProperty("image")
     private List<ValidateDto> image = new LinkedList<>();

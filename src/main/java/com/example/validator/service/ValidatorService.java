@@ -307,6 +307,14 @@ public class ValidatorService {
                 if (!fieldContainsData(product.getLink()) || !product.getLink().startsWith("https:")) {
                     list.getProductLink().add(link);
                 }
+                //price
+                if (product.getPrices() != null) {
+                    if (!fieldContainsData(product.getPrices().getPrice()) || product.getPrices().getPrice().isBlank()) {
+                        list.getPrice().add(link);
+                    }
+                } else {
+                    list.getPrice().add(link);
+                }
                 //images
                 if (product.getImages() == null) {
                     ValidateDto image = new ValidateDto();
