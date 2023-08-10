@@ -303,6 +303,10 @@ public class ValidatorService {
                 if (!fieldContainsData(product.getTitle()) || product.getTitle().isBlank()) {
                     list.getTitle().add(link);
                 }
+                //screenshot
+                if (!fieldContainsData(product.getScreenshot()) || product.getScreenshot().isBlank()) {
+                    list.getScreenshot().add(link);
+                }
                 //link
                 if (!fieldContainsData(product.getLink()) || !product.getLink().startsWith("https:")) {
                     list.getProductLink().add(link);
