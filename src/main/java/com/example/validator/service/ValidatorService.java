@@ -288,11 +288,17 @@ public class ValidatorService {
                     list.getCurrency().add(currency);
                 }
                 //category
-                if (!fieldContainsData(product.getCategory()) || product.getCategory().contains("??")) {
+                if (!fieldContainsData(product.getCategory())) {
+                    list.getCategory().add(link);
+                }
+                if (product.getCategory() != null && product.getCategory().contains("??")) {
                     list.getCategory().add(link);
                 }
                 //seller name
-                if (!fieldContainsData(product.getSellerName()) || product.getCategory().contains("??")) {
+                if (!fieldContainsData(product.getSellerName())) {
+                    list.getSellerName().add(link);
+                }
+                if (product.getSellerName() != null && product.getSellerName().contains("??")) {
                     list.getSellerName().add(link);
                 }
                 //seller url
@@ -304,7 +310,10 @@ public class ValidatorService {
                     list.getSellerId().add(link);
                 }
                 //title
-                if (!fieldContainsData(product.getTitle()) || product.getTitle().isBlank() || product.getCategory().contains("??")) {
+                if (!fieldContainsData(product.getTitle())) {
+                    list.getTitle().add(link);
+                }
+                if (product.getTitle() != null && product.getTitle().contains("??")) {
                     list.getTitle().add(link);
                 }
                 //screenshot
@@ -317,8 +326,10 @@ public class ValidatorService {
                 }
                 //price
                 if (product.getPrices() != null) {
-                    if (!fieldContainsData(product.getPrices().getPrice()) || product.getPrices().getPrice().isBlank()
-                            || product.getPrices().getPrice().equals("0.00")) {
+                    if (!fieldContainsData(product.getPrices().getPrice())) {
+                        list.getPrice().add(link);
+                    }
+                    if (product.getPrices().getPrice() != null && product.getPrices().getPrice().equals("0.00")) {
                         list.getPrice().add(link);
                     }
                 } else {
