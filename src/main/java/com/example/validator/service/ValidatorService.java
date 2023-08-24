@@ -289,25 +289,25 @@ public class ValidatorService {
                 }
                 //category
                 if (!fieldContainsData(product.getCategory())) {
-                    list.getCategory().add("null or empty " +link);
+                    list.getCategory().add("null or empty " + link);
                 }
                 if (product.getCategory() != null && product.getCategory().contains("??")) {
-                    list.getCategory().add("?? " +link);
+                    list.getCategory().add("?? " + link);
                 }
                 //seller name
                 if (!fieldContainsData(product.getSellerName())) {
-                    list.getSellerName().add("null or empty " +link);
+                    list.getSellerName().add("null or empty " + link);
                 }
                 if (product.getSellerName() != null && product.getSellerName().contains("??")) {
-                    list.getSellerName().add("?? " +link);
+                    list.getSellerName().add("?? " + link);
                 }
                 //seller url
                 if (!fieldContainsData(product.getSellerUrl())) {
-                    list.getSellerUrl().add(link);
+                    list.getSellerUrl().add("null or empty " + link);
                 }
                 //seller id
                 if (!fieldContainsData(product.getSellerId())) {
-                    list.getSellerId().add(link);
+                    list.getSellerId().add("null or empty " + link);
                 }
                 //title
                 if (!fieldContainsData(product.getTitle())) {
@@ -330,7 +330,7 @@ public class ValidatorService {
                         list.getPrice().add("null or empty " + link);
                     }
                     if (product.getPrices().getPrice() != null && product.getPrices().getPrice().equals("0.00")) {
-                        list.getPrice().add("0.00 " +link);
+                        list.getPrice().add("0.00 " + link);
                     }
                 } else {
                     list.getPrice().add(link);
