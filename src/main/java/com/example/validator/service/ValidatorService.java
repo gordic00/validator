@@ -289,17 +289,17 @@ public class ValidatorService {
                 }
                 //category
                 if (!fieldContainsData(product.getCategory())) {
-                    list.getCategory().add(link);
+                    list.getCategory().add("null or empty " +link);
                 }
                 if (product.getCategory() != null && product.getCategory().contains("??")) {
-                    list.getCategory().add(link);
+                    list.getCategory().add("?? " +link);
                 }
                 //seller name
                 if (!fieldContainsData(product.getSellerName())) {
-                    list.getSellerName().add(link);
+                    list.getSellerName().add("null or empty " +link);
                 }
                 if (product.getSellerName() != null && product.getSellerName().contains("??")) {
-                    list.getSellerName().add(link);
+                    list.getSellerName().add("?? " +link);
                 }
                 //seller url
                 if (!fieldContainsData(product.getSellerUrl())) {
@@ -311,10 +311,10 @@ public class ValidatorService {
                 }
                 //title
                 if (!fieldContainsData(product.getTitle())) {
-                    list.getTitle().add(link);
+                    list.getTitle().add("null or empty " + link);
                 }
                 if (product.getTitle() != null && product.getTitle().contains("??")) {
-                    list.getTitle().add(link);
+                    list.getTitle().add("?? " + link);
                 }
                 //screenshot
                 if (!fieldContainsData(product.getScreenshot()) || product.getScreenshot().isBlank()) {
@@ -327,10 +327,10 @@ public class ValidatorService {
                 //price
                 if (product.getPrices() != null) {
                     if (!fieldContainsData(product.getPrices().getPrice())) {
-                        list.getPrice().add(link);
+                        list.getPrice().add("null or empty " + link);
                     }
                     if (product.getPrices().getPrice() != null && product.getPrices().getPrice().equals("0.00")) {
-                        list.getPrice().add(link);
+                        list.getPrice().add("0.00 " +link);
                     }
                 } else {
                     list.getPrice().add(link);
