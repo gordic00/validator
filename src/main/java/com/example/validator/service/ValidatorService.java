@@ -391,12 +391,19 @@ public class ValidatorService {
     public ResponseEntity<List<ScreenshotResponse>> getScreenshot(String ip, List<String> urls) {
         List<ScreenshotResponse> screenshotRes = new ArrayList<>();
         for (String url : urls) {
-            RestTemplate rest = new RestTemplate();
-            ResponseEntity<SiteData> response = rest.getForEntity(getUrl(ip, url), SiteData.class);
-            if (response.getBody() != null && response.getStatusCode().equals(HttpStatus.OK)) {
+            try {
+                RestTemplate rest = new RestTemplate();
+                ResponseEntity<SiteData> response = rest.getForEntity(getUrl(ip, url), SiteData.class);
+                if (response.getBody() != null && response.getStatusCode().equals(HttpStatus.OK)) {
+                    ScreenshotResponse sr = new ScreenshotResponse();
+                    sr.setUrl(url);
+                    sr.setScreenshotUrl(response.getBody().getScreenshotUrl());
+                    screenshotRes.add(sr);
+                }
+            } catch (Exception e) {
                 ScreenshotResponse sr = new ScreenshotResponse();
                 sr.setUrl(url);
-                sr.setScreenshotUrl(response.getBody().getScreenshotUrl());
+                sr.setScreenshotUrl("moras sam Sale :D");
                 screenshotRes.add(sr);
             }
         }
