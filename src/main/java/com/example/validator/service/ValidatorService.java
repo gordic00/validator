@@ -1,5 +1,7 @@
 package com.example.validator.service;
 
+import com.example.validator.model.ScreenshotResponse;
+import com.example.validator.model.SiteData;
 import com.example.validator.model.dto.*;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
@@ -8,14 +10,13 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 
 import java.io.IOException;
-import java.util.HashSet;
-import java.util.LinkedHashSet;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
 @Service
 @RequiredArgsConstructor
@@ -385,5 +386,24 @@ public class ValidatorService {
 //        System.out.println(om.writerWithDefaultPrettyPrinter().writeValueAsString(images));
 
         return null;
+    }
+
+    public ResponseEntity<List<ScreenshotResponse>> getScreenshot(String ip, List<String> urls) {
+        List<ScreenshotResponse> screenshotRes = new ArrayList<>();
+        for (String url : urls) {
+            RestTemplate rest = new RestTemplate();
+            ResponseEntity<SiteData> response = rest.getForEntity(getUrl(ip, url), SiteData.class);
+            if (response.getBody() != null && response.getStatusCode().equals(HttpStatus.OK)) {
+                ScreenshotResponse sr = new ScreenshotResponse();
+                sr.setUrl(url);
+                sr.setScreenshotUrl(response.getBody().getScreenshotUrl());
+                screenshotRes.add(sr);
+            }
+        }
+        return ResponseEntity.ok(screenshotRes);
+    }
+
+    private String getUrl(String ip, String url) {
+        return "http://" + ip + ":8081" + "/api/v1/get/site-data" + "?url=" + Base64.getUrlEncoder().encodeToString(url.getBytes());
     }
 }

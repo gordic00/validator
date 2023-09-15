@@ -1,5 +1,7 @@
 package com.example.validator.controller;
 
+import com.example.validator.model.ScreenshotResponse;
+import com.example.validator.model.SiteData;
 import com.example.validator.model.dto.BatchDto;
 import com.example.validator.model.dto.ValidateListDto;
 import com.example.validator.service.ValidatorService;
@@ -44,6 +46,14 @@ public class ValidatorController {
             @RequestParam("url") String url
     ) throws IOException {
         return service.scrape(url);
+    }
+
+    @GetMapping(path = "/screenshot")
+    public ResponseEntity<List<ScreenshotResponse>> getScreenshot(
+            @RequestParam("ip") String ip,
+            @RequestParam("urls") List<String> urls
+    ) {
+        return service.getScreenshot(ip, urls);
     }
 
 }
